@@ -1,0 +1,250 @@
+/* GENEL AYARLAR */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #12161a; /* Koyu premium antrasit tonu */
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* 1. SPLASH SCREEN (GİRİŞ EKRANI) */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: radial-gradient(circle, #1a202c 0%, #0a0d14 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    transition: opacity 0.8s ease;
+    text-align: center;
+}
+
+.splash-content .fade-in-text {
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+.splash-content .fade-in-sub {
+    font-size: 1.1rem;
+    color: #a0aec0;
+    margin-bottom: 40px;
+}
+
+.enter-btn {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.enter-btn:hover {
+    background: #fff;
+    color: #0a0d14;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 2. ANA İÇERİK */
+.main-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.main-content.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.main-header h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.main-header p {
+    color: #718096;
+}
+
+/* MÜZİK KONTROL BUTONU */
+.music-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.music-icon {
+    font-size: 1.3rem;
+}
+
+/* Müzik çalarken plak gibi dönme efekti */
+.music-control.playing {
+    animation: rotateMusic 3s linear infinite;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes rotateMusic {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ZAMAN TÜNELİ (TIMELINE) MIMARISI */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+/* Ortadaki dik çizgi */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    padding-left: 70px;
+}
+
+.timeline-img {
+    position: absolute;
+    top: 5px;
+    left: 11px;
+    width: 40px;
+    height: 40px;
+    background: #1e2530;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    font-size: 1.1rem;
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.date {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: #ff4d6d; /* Öne çıkan tatlı anı rengi */
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
+}
+
+.timeline-content h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.memory-media {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.memory-media:hover {
+    opacity: 1;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 250px;
+    background: #1a202c;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #718096;
+}
+
+.timeline-content p {
+    color: #a0aec0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* FOOTER */
+.main-footer {
+    text-align: center;
+    margin-top: 80px;
+    color: #718096;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+/* MOBİL UYUMLULUK */
+@media (max-width: 576px) {
+    .splash-content .fade-in-text {
+        font-size: 2.2rem;
+    }
+    .main-header h2 {
+        font-size: 2rem;
+    }
+    .timeline-content {
+        padding: 15px;
+    }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizim Hikayemiz ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ARKA PLAN MÜZİĞİ (Shape of My Heart) -->
+    <!-- MP3 dosyasını bu klasöre atıp adını shape-of-my-heart.mp3 yapman yeterli -->
+    <audio id="bgMusic" src="shape-of-my-heart.mp3" loop></audio>
+
+    <!-- 1. GİRİŞ EKRANI (SPLASH SCREEN) -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <h1 class="fade-in-text">Bizim Hikayemiz</h1>
+            <p class="fade-in-sub">"Bazı hikayeler yarım kalmaz, sadece doğru zamanı bekler. Bu sefer sonsuza kadar, el ele..."</p>
+            <button class="enter-btn" onclick="startStory()">Anılara Yolculuk ✨</button>
+        </div>
+    </div>
+
+    <!-- 2. ANA İÇERİK VE ZAMAN TÜNELİ -->
+    <div class="main-content" id="mainContent">
+        
+        <!-- MÜZİK KONTROLÜ (Ekranın sağ üstünde dönecek) -->
+        <div class="music-control" id="musicCtrl" onclick="toggleMusic()">
+            <span class="music-icon">🎵</span>
+        </div>
+
+        <header class="main-header">
+            <h2>Zaman Tüneli</h2>
+            <p>Nilay & Arda — İyi ki yolum seninle kesişti, iyi ki her anım seninle güzelleşti.</p>
+        </header>
+
+        <!-- ZAMAN TÜNELİ BAŞLANGICI -->
+        <div class="timeline">
+            
+            <!-- ANI 1: GEÇMİŞ / İLK SAYFA -->
+            <div class="timeline-item">
+                <div class="timeline-img">⏳</div>
+                <div class="timeline-content">
+                    <span class="date">Bir Sene Önce...</span>
+                    <h3>Yollarımızın İlk Kesişimi</h3>
+                    <!-- Görseller eline geçene kadar geçici yer tutucu (placeholder) kalabilir -->
+                    <img src="https://picsum.photos/600/400?random=1" alt="Anı Fotoğrafı" class="memory-media">
+                    <p>Her şey bir sene önce, hayatımın en güzel sayfalarından biri olarak başladı seninle. O zamanlar belki zaman doğru değildi, belki hayatın bize getireceği başka virajlar vardı ve yollarımız bir süreliğine ayrıldı. Ben senin hayatından çıktım ama kalbimden, aklımdan o gülüşünü, o sesini hiç çıkaramadım. Aradaki mesafeler veya geçen zaman, bendeki yerini bir saniye bile azaltamadı. Hep bir yerlerde eksik kaldığımı hissettiğim, o sessiz dönem...</p>
+                </div>
+            </div>
+
+            <!-- ANI 2: KAVUŞMA / DÖNÜM NOKTASI -->
+            <div class="timeline-item">
+                <div class="timeline-img">🔄</div>
+                <div class="timeline-content">
+                    <span class="date">Büyük Geri Dönüş</span>
+                    <h3>Yarım Kalan Hikayenin Tamamlanması</h3>
+                    <div class="video-placeholder">
+                        <span class="play-hint">📹 Buraya Beraber Çekildiğiniz İlk Kavuşma Videosu/Görseli</span>
+                    </div>
+                    <p>Hayat bize çok güzel bir şey öğretti sevgilim: Gerçek bağlar ne kadar koparsa kopsun, dönüp dolaşıp yine birbirini bulurmuş. Biz o yarım kalan hikayeyi bir kenara atmadık; tam tersi, kaldığımız yerden çok daha güçlü, çok daha ne istediğini bilen iki insan olarak yeniden bir araya geldik. Sana tekrar sarıldığım, elini yeniden tuttuğum o an, evime geri dönmüş gibi hissettim. Bu sefer ne yarım kalacağız, ne de birbirimizi kaybedeceğiz.</p>
+                </div>
+            </div>
+
+            <!-- ANI 3: SONSUZLUK SÖZÜ -->
+            <div class="timeline-item">
+                <div class="timeline-img">♾️</div>
+                <div class="timeline-content">
+                    <span class="date">Şimdi ve Sonsuza Dek</span>
+                    <h3>Ömrümün Sonuna Kadar Seni İstiyorum</h3>
+                    <img src="https://picsum.photos/600/400?random=2" alt="Anı Fotoğrafı" class="memory-media">
+                    <p>Ve işte bugün... Karşındayım ve bu sefer sadece bugünü değil, gelebilecek tüm yarınları seninle geçirmeye söz veriyorum. Seni sadece hayatımın bir dönemi için değil, ömrümün yettiği son ana kadar hayatımda istiyorum. Dünyanın en inatçı ama en dünyalar tatlısı kadını; iyi ki pes etmedik, iyi ki birbirimizin kalbini yeniden bulduk. Bu site, seninle kuracağımız o sonsuz ve huzurlu geleceğin sadece küçük bir başlangıcı olsun. Seni her şeyden çok seviyorum.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="main-footer">
+            <p>Ve bu asil şarkı her döndüğünde, hikayemiz yeniden yazılmaya devam edecek... ❤️</p>
+        </footer>
+    </div>
+
+    <!-- SCRIPTLER (Müzik ve Giriş Kontrolü) -->
+    <script>
+        function startStory() {
+            // Giriş ekranını yavaşça kapat
+            const splash = document.getElementById('splashScreen');
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+                // Ana içeriği göster
+                document.getElementById('mainContent').classList.add('visible');
+            }, 800);
+
+            // Müziği oynat
+            const music = document.getElementById('bgMusic');
+            music.play().then(() => {
+                document.getElementById('musicCtrl').classList.add('playing');
+            }).catch(error => {
+                console.log("Müzik otomatik başlatılamadı, tıklama bekleniyor.");
+            });
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const ctrl = document.getElementById('musicCtrl');
+            
+            if (music.paused) {
+                music.play();
+                ctrl.classList.add('playing');
+            } else {
+                music.pause();
+                ctrl.classList.remove('playing');
+            }
+        }
+    </script>
+</body>
+</html>
