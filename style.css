@@ -1,4 +1,6 @@
-/* GENEL AYARLAR */
+/* GENEL AYARLAR & MODERN FONT ENTEGRASYONU */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,10 +8,38 @@
 }
 
 body {
-    background-color: #12161a; /* Koyu premium antrasit tonu */
+    /* Gece mavisi ve derin lacivert geçişli gökyüzü arka planı */
+    background: linear-gradient(180deg, #060b19 0%, #0b1528 50%, #111e36 100%);
     color: #e2e8f0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* PARILDAYAN GECE YILDIZLARI EFEKTİ */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    opacity: 0.4;
+    z-index: 1;
+    animation: starTwinkle 8s infinite linear;
+}
+
+@keyframes starTwinkle {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.3; }
 }
 
 /* 1. SPLASH SCREEN (GİRİŞ EKRANI) */
@@ -19,7 +49,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: radial-gradient(circle, #1a202c 0%, #0a0d14 100%);
+    background: radial-gradient(circle at center, #0c1932 0%, #040814 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,47 +58,73 @@ body {
     text-align: center;
 }
 
+/* Giriş ekranındaki zarif Ay (Moon) tasarımı */
+.splash-content::before {
+    content: "🌙";
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+    animation: moonFloat 4s ease-in-out infinite;
+}
+
+@keyframes moonFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
 .splash-content .fade-in-text {
-    font-size: 3rem;
-    color: #fff;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-    font-weight: 300;
+    font-size: 3.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+    font-weight: 200; /* Ekstra ince ve modern görünüm */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .splash-content .fade-in-sub {
-    font-size: 1.1rem;
-    color: #a0aec0;
-    margin-bottom: 40px;
+    font-size: 1.05rem;
+    color: #94a3b8;
+    margin-bottom: 45px;
+    font-weight: 300;
+    max-width: 450px;
+    line-height: 1.6;
+    padding: 0 20px;
 }
 
 .enter-btn {
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    background: transparent;
+    padding: 14px 45px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.03);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    letter-spacing: 1px;
+    font-weight: 400;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(5px);
 }
 
 .enter-btn:hover {
-    background: #fff;
-    color: #0a0d14;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    background: #ffffff;
+    color: #060b19;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    border-color: #ffffff;
 }
 
 /* 2. ANA İÇERİK */
 .main-content {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 1s ease;
-    max-width: 800px;
+    transition: opacity 1.2s ease;
+    max-width: 750px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 2; /* Yıldızların üzerinde kalması için */
 }
 
 .main-content.visible {
@@ -78,28 +134,31 @@ body {
 
 .main-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
 }
 
 .main-header h2 {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: #fff;
-    margin-bottom: 10px;
+    font-size: 2.6rem;
+    font-weight: 200;
+    color: #ffffff;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
 }
 
 .main-header p {
-    color: #718096;
+    color: #64748b;
+    font-weight: 300;
+    font-size: 0.95rem;
 }
 
 /* MÜZİK KONTROL BUTONU */
 .music-control {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.05);
+    top: 25px;
+    right: 25px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
@@ -107,18 +166,18 @@ body {
     align-items: center;
     cursor: pointer;
     z-index: 100;
+    backdrop-filter: blur(5px);
     transition: all 0.3s ease;
 }
 
 .music-icon {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 
-/* Müzik çalarken plak gibi dönme efekti */
 .music-control.playing {
-    animation: rotateMusic 3s linear infinite;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    animation: rotateMusic 4s linear infinite;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 @keyframes rotateMusic {
@@ -129,79 +188,85 @@ body {
 /* ZAMAN TÜNELİ (TIMELINE) MIMARISI */
 .timeline {
     position: relative;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 
-/* Ortadaki dik çizgi */
+/* Ortadaki asil ince gece çizgisi */
 .timeline::before {
     content: '';
     position: absolute;
     top: 0;
     left: 30px;
     height: 100%;
-    width: 2px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1));
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.05));
 }
 
 .timeline-item {
     position: relative;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     padding-left: 70px;
 }
 
 .timeline-img {
     position: absolute;
-    top: 5px;
+    top: 6px;
     left: 11px;
     width: 40px;
     height: 40px;
-    background: #1e2530;
-    border: 1px solid rgba(255,255,255,0.2);
+    background: #09101f;
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .timeline-content {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    background: rgba(13, 25, 48, 0.4); /* Cam efekti için yarı saydam gece mavisi */
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .timeline-content:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-4px);
+    background: rgba(18, 34, 64, 0.5);
     border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
 }
 
 .date {
     display: inline-block;
-    font-size: 0.85rem;
-    color: #ff4d6d; /* Öne çıkan tatlı anı rengi */
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(255, 77, 109, 0.2);
+    font-size: 0.8rem;
+    color: #93c5fd; /* Gece temasına uygun soft açık mavi tonu */
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
 .timeline-content h3 {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 400;
-    color: #fff;
-    margin-bottom: 15px;
+    color: #ffffff;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
 }
 
 .memory-media {
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    opacity: 0.9;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    opacity: 0.85;
     transition: opacity 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .memory-media:hover {
@@ -210,41 +275,57 @@ body {
 
 .video-placeholder {
     width: 100%;
-    height: 250px;
-    background: #1a202c;
-    border: 1px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    height: 240px;
+    background: rgba(4, 8, 18, 0.5);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
-    color: #718096;
+    margin-bottom: 18px;
+    color: #475569;
+    font-size: 0.9rem;
 }
 
 .timeline-content p {
-    color: #a0aec0;
-    line-height: 1.6;
+    color: #cbd5e1;
+    line-height: 1.7;
     font-size: 0.95rem;
+    font-weight: 300;
 }
 
 /* FOOTER */
 .main-footer {
     text-align: center;
-    margin-top: 80px;
-    color: #718096;
-    font-size: 1.1rem;
+    margin-top: 100px;
+    color: #475569;
+    font-size: 1rem;
     font-weight: 300;
+    letter-spacing: 1px;
 }
 
 /* MOBİL UYUMLULUK */
 @media (max-width: 576px) {
     .splash-content .fade-in-text {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
+        letter-spacing: 2px;
     }
     .main-header h2 {
-        font-size: 2rem;
+        font-size: 1.9rem;
     }
     .timeline-content {
-        padding: 15px;
+        padding: 20px;
+    }
+    .timeline::before {
+        left: 20px;
+    }
+    .timeline-item {
+        padding-left: 50px;
+    }
+    .timeline-img {
+        left: 1px;
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
     }
 }
