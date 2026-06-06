@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizim Hikayemiz ❤️</title>
-    <link rel="stylesheet" href="style.css?v=1.3">
+    <link rel="stylesheet" href="style.css?v=1.5">
 </head>
 <body>
 
-    <!-- CANLI MP3 BAĞLANTISI (Shape of My Heart) -->
-    <!-- Doğrudan internet üzerindeki güvenilir CDN sunucusundan çekiliyor -->
-    <audio id="bgMusic" src="https://archive.org/download/sting-shape-of-my-heart_202202/Sting%20-%20Shape%20Of%20My%20Heart.mp3" loop></audio>
+    <!-- YEREL MP3 BAĞLANTISI -->
+    <!-- İndirdiğin orijinal dosya adı buraya tam olarak entegre edildi -->
+    <audio id="bgMusic" src="sting-shape-of-my-heart.mp3" loop></audio>
 
     <!-- 1. GİRİŞ EKRANI (SPLASH SCREEN) -->
     <div class="splash-screen" id="splashScreen">
@@ -24,7 +24,7 @@
     <!-- 2. ANA İÇERİK VE ZAMAN TÜNELİ -->
     <div class="main-content" id="mainContent">
         
-        <!-- MÜZİK KONTROLÜ (Ekranın sağ üstünde dönecek) -->
+        <!-- MÜZİK KONTROLÜ -->
         <div class="music-control" id="musicCtrl" onclick="toggleMusic()">
             <span class="music-icon">🎵</span>
         </div>
@@ -44,7 +44,7 @@
                     <span class="date">Bir Sene Önce...</span>
                     <h3>Yollarımızın İlk Kesişimi</h3>
                     <img src="https://picsum.photos/600/400?random=1" alt="Anı Fotoğrafı" class="memory-media">
-                    <p>Her şey bir sene önce, hayatımın en güzel sayfalarından biri olarak başladı seninle. O zamanlar belki zaman doğru değildi, belki hayatın bize getireceği XML virajları vardı ve yollarımız bir süreliğine ayrıldı. Ben senin hayatından çıktım ama kalbimden, aklımdan o gülüşünü, o sesini hiç çıkaramadım. Aradaki mesafeler veya geçen zaman, bendeki yerini bir saniye bile azaltamadı. Hep bir yerlerde eksik kaldığımı hissettiğim, o sessiz dönem...</p>
+                    <p>Her şey bir sene önce, hayatımın en güzel sayfalarından biri olarak başladı seninle. O zamanlar belki zaman doğru değildi, belki hayatın bize getireceği başka virajlar vardı ve yollarımız bir süreliğine ayrıldı. Ben senin hayatından çıktım ama kalbimden, aklımdan o gülüşünü, o sesini hiç çıkaramadım. Aradaki mesafeler veya geçen zaman, bendeki yerini bir saniye bile azaltamadı. Hep bir yerlerde eksik kaldığımı hissettiğim, o sessiz dönem...</p>
                 </div>
             </div>
 
@@ -89,12 +89,12 @@
                 document.getElementById('mainContent').classList.add('visible');
             }, 800);
 
-            // Canlı MP3 dosyasını tetikle
+            // MP3 dosyasını çalma komutu
             const music = document.getElementById('bgMusic');
             music.play().then(() => {
                 document.getElementById('musicCtrl').classList.add('playing');
             }).catch(error => {
-                console.log("Müzik otomatik başlatılamadı, tıklama bekleniyor.");
+                console.log("Müzik tarayıcı tarafından engellendi.");
             });
         }
 
