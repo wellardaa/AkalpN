@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bizim Hikayemiz ❤️</title>
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="style.css?v=1.2">
 </head>
 <body>
 
-    <!-- ARKA PLAN MÜZİĞİ (Shape of My Heart) -->
-    <!-- MP3 dosyasını bu klasöre atıp adını shape-of-my-heart.mp3 yapman yeterli -->
-    <audio id="bgMusic" src="shape-of-my-heart.mp3" loop></audio>
+    <!-- YOUTUBE ARKA PLAN OYNATICISI (Gizli ve Döngüde) -->
+    <!-- Sting - Shape of My Heart YouTube ID'si kullanıldı (?enablejsapi=1 ile JS kontrolü sağlandı) -->
+    <iframe id="ytPlayer" 
+            src="https://www.youtube.com/embed/NlwIDxCjL-8?enablejsapi=1&loop=1&playlist=NlwIDxCjL-8&controls=0&showinfo=0&rel=0" 
+            style="position: absolute; width: 0; height: 0; border: none; visibility: hidden;" 
+            allow="autoplay">
+    </iframe>
 
     <!-- 1. GİRİŞ EKRANI (SPLASH SCREEN) -->
     <div class="splash-screen" id="splashScreen">
@@ -24,7 +28,7 @@
     <!-- 2. ANA İÇERİK VE ZAMAN TÜNELİ -->
     <div class="main-content" id="mainContent">
         
-        <!-- MÜZİK KONTROLÜ (Ekranın sağ üstünde dönecek) -->
+        <!-- MÜZİK KONTROLÜ -->
         <div class="music-control" id="musicCtrl" onclick="toggleMusic()">
             <span class="music-icon">🎵</span>
         </div>
@@ -43,7 +47,6 @@
                 <div class="timeline-content">
                     <span class="date">Bir Sene Önce...</span>
                     <h3>Yollarımızın İlk Kesişimi</h3>
-                    <!-- Görseller eline geçene kadar geçici yer tutucu (placeholder) kalabilir -->
                     <img src="https://picsum.photos/600/400?random=1" alt="Anı Fotoğrafı" class="memory-media">
                     <p>Her şey bir sene önce, hayatımın en güzel sayfalarından biri olarak başladı seninle. O zamanlar belki zaman doğru değildi, belki hayatın bize getireceği başka virajlar vardı ve yollarımız bir süreliğine ayrıldı. Ben senin hayatından çıktım ama kalbimden, aklımdan o gülüşünü, o sesini hiç çıkaramadım. Aradaki mesafeler veya geçen zaman, bendeki yerini bir saniye bile azaltamadı. Hep bir yerlerde eksik kaldığımı hissettiğim, o sessiz dönem...</p>
                 </div>
@@ -80,37 +83,39 @@
         </footer>
     </div>
 
-    <!-- SCRIPTLER (Müzik ve Giriş Kontrolü) -->
+    <!-- SCRIPTLER (YouTube API Kontrolü) -->
     <script>
+        var player;
+        var isPlaying = false;
+
+        // YouTube API hazır olduğunda iframe komutlarını yakalamak için postMessage kullanıyoruz
         function startStory() {
-            // Giriş ekranını yavaşça kapat
             const splash = document.getElementById('splashScreen');
             splash.style.opacity = '0';
             setTimeout(() => {
                 splash.style.display = 'none';
-                // Ana içeriği göster
                 document.getElementById('mainContent').classList.add('visible');
             }, 800);
 
-            // Müziği oynat
-            const music = document.getElementById('bgMusic');
-            music.play().then(() => {
-                document.getElementById('musicCtrl').classList.add('playing');
-            }).catch(error => {
-                console.log("Müzik otomatik başlatılamadı, tıklama bekleniyor.");
-            });
+            // YouTube videosunu oynat komutu gönder
+            const iframe = document.getElementById('ytPlayer');
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            document.getElementById('musicCtrl').classList.add('playing');
+            isPlaying = true;
         }
 
         function toggleMusic() {
-            const music = document.getElementById('bgMusic');
+            const iframe = document.getElementById('ytPlayer');
             const ctrl = document.getElementById('musicCtrl');
             
-            if (music.paused) {
-                music.play();
+            if (!isPlaying) {
+                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                 ctrl.classList.add('playing');
+                isPlaying = true;
             } else {
-                music.pause();
+                iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
                 ctrl.classList.remove('playing');
+                isPlaying = false;
             }
         }
     </script>
